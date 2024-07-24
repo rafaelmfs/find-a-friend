@@ -1,7 +1,7 @@
 import { Address } from "./Address";
 
 export interface Organization {
-  id?: string;
+  id: string;
   responsible: string;
   email: string;
   address: Address;

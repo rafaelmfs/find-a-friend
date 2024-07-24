@@ -1,12 +1,15 @@
 import { Organization } from "@/interfaces/Organization";
 import { randomUUID } from "crypto";
-import { OrganizationsRepository } from "../organizations-repository";
+import {
+  OrganizationsRepository,
+  RegisterOrganizationParams,
+} from "../organizations-repository";
 
 export class InMemoryOrganizationsRepository
   implements OrganizationsRepository
 {
   private items: Organization[] = [];
-  async register(data: Organization) {
+  async register(data: RegisterOrganizationParams) {
     const newOrg = {
       ...data,
       id: data?.id ?? randomUUID(),

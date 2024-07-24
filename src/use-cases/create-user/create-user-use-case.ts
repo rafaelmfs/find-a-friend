@@ -16,14 +16,18 @@ interface CreateUserUseCaseResponse {
 export class CreateUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
-  async execute(
-    data: CreateUserUseCaseRequest
-  ): Promise<CreateUserUseCaseResponse> {
-    const userWithSameEmail = await this.userRepository.findByEmail(data.email);
+  private async checkIfEmailAlreadyExists(email: string): Promise<void> {
+    const userWithSameEmail = await this.userRepository.findByEmail(email);
 
     if (userWithSameEmail) {
       throw new EmailAlreadyExistsError();
     }
+  }
+
+  async execute(
+    data: CreateUserUseCaseRequest
+  ): Promise<CreateUserUseCaseResponse> {
+    await this.checkIfEmailAlreadyExists(data.email);
 
     const hashedPassword = await hash(data.password, 6);
     const user = await this.userRepository.register({
