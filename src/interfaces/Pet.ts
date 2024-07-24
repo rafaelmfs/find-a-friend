@@ -6,6 +6,9 @@ export interface Pet {
   energyLevel: number;
   independencieLevel: number;
   environmentLevel: number;
-  pictures: string[];
   adoptionRequirements: string[];
+  city: string;
+  organization_id: string;
+  pictures?: string[];
+  id: string;
 }
