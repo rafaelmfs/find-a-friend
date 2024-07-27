@@ -5,5 +5,5 @@ export function formatCityAndState({
   city: string;
   state: string;
 }): string {
-  return `${city.toLowerCase()}-(${state.toLowerCase()})`;
+  return `${city.toLowerCase()}-(${state.toUpperCase()})`;
 }
