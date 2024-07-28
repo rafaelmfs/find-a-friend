@@ -21,7 +21,7 @@ describe("Register Pet", () => {
       address: {
         city: "Sao Paulo",
         state: "SP",
-        cep: "",
+        zipCode: "",
         number: "",
         street: "",
       },

@@ -16,7 +16,7 @@ describe("Create user use case", () => {
     const newUser = {
       email: "john.doe@example.com",
       password: "password123",
-      id: "test123",
+      id: 123,
     };
     const userResponse = await sut.execute(newUser);
     const { user } = userResponse;
@@ -29,7 +29,7 @@ describe("Create user use case", () => {
     const newUser = {
       email: "john.doe@example.com",
       password: "password123",
-      id: "test123",
+      id: 123,
     };
     await sut.execute(newUser);
 
@@ -37,7 +37,7 @@ describe("Create user use case", () => {
       sut.execute({
         email: "john.doe@example.com",
         password: "newpassword123",
-        id: "test456",
+        id: 123,
       })
     ).rejects.toBeInstanceOf(EmailAlreadyExistsError);
   });

@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  email        String         @unique
+  Organization Organization[]
+
+  @@map("users")
+}
+
+model Organization {
+  id          String @id @default(uuid())
+  responsible String
+  whatsapp    String
+  email       String @unique
+
+  user       User    @relation(fields: [user_id], references: [id])
+  user_id    Int
+  address    Address @relation(fields: [address_id], references: [id])
+  address_id Int
+  Pet        Pet[]
+
+  @@map("organizations")
+}
+
+model Address {
+  id           Int            @id @default(autoincrement())
+  street       String
+  city         String
+  state        String
+  zip          String
+  number       String
+  Organization Organization[]
+
+  @@map("addresses")
+}
+
+model Pet {
+  id                 String       @id @default(uuid())
+  name               String
+  description        String
+  age                Int
+  stature            Int
+  energi_level       Int
+  independence_level Int
+  environment_level  Int
+  organization       Organization @relation(fields: [organization_id], references: [id])
+
+  organization_id         String
+  PetAdoptionRequirements PetAdoptionRequirements[]
+  PetPictures             PetPictures[]
+
+  @@map("pets")
+}
+
+model PetAdoptionRequirements {
+  id          Int    @id @default(autoincrement())
+  requirement String
+  pet         Pet    @relation(fields: [pet_id], references: [id])
+  pet_id      String
+
+  @@map("pet_adoption_requirements")
+}
+
+model PetPictures {
+  id      Int    @id @default(autoincrement())
+  pic_url String
+  pet     Pet    @relation(fields: [pet_id], references: [id])
+  pet_id  String
+
+  @@map("pet_pictures")
+}

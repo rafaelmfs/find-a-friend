@@ -6,5 +6,5 @@ export interface Organization {
   email: string;
   address: Address;
   whatsapp: string;
-  user_id: string;
+  user_id: number;
 }

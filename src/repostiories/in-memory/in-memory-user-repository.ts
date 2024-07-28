@@ -1,5 +1,4 @@
 import { User } from "@/interfaces/User";
-import { randomUUID } from "crypto";
 import { RegisterUserParams, UserRepository } from "../user-repository";
 
 export class InMemoryUserRepository implements UserRepository {
@@ -7,13 +6,13 @@ export class InMemoryUserRepository implements UserRepository {
   async register(data: RegisterUserParams) {
     const newUser = {
       ...data,
-      id: data.id ?? randomUUID(),
+      id: data.id ?? Math.floor(Math.random()),
     };
     this.items.push(newUser);
 
     return newUser;
   }
-  async findById(id: string) {
+  async findById(id: number) {
     const user = this.items.find((user) => user.id === id);
     return user ?? null;
   }

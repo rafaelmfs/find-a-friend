@@ -29,7 +29,7 @@ export class AuthenticateUseCase {
     return organization;
   }
 
-  private async findUserById(id: string): Promise<User> {
+  private async findUserById(id: number): Promise<User> {
     const user = await this.userRepository.findById(id);
     if (!user) {
       throw new UserNotFoundError();

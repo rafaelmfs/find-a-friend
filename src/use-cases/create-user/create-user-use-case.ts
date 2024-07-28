@@ -6,7 +6,7 @@ import { EmailAlreadyExistsError } from "../errors/email-already-exists-error";
 interface CreateUserUseCaseRequest {
   email: string;
   password: string;
-  id?: string;
+  id?: number;
 }
 
 interface CreateUserUseCaseResponse {

@@ -22,7 +22,7 @@ describe("Authenticate use case", () => {
     const user = await userRepository.register({
       email: "john.doe@example.com",
       password_hash: hashSync("password123", 6),
-      id: "test123",
+      id: 123,
     });
 
     await organizationRepository.register({
@@ -31,7 +31,7 @@ describe("Authenticate use case", () => {
         number: "123",
         city: "Cidade Teste",
         state: "SP",
-        cep: "",
+        zipCode: "",
       },
       email: user.email,
       responsible: "John Snow",
@@ -56,7 +56,7 @@ describe("Authenticate use case", () => {
     const user = await userRepository.register({
       email: "john123@example.com",
       password_hash: hashSync("password123", 6),
-      id: "test123",
+      id: 123,
     });
 
     await organizationRepository.register({
@@ -65,7 +65,7 @@ describe("Authenticate use case", () => {
         number: "123",
         city: "Cidade Teste",
         state: "SP",
-        cep: "",
+        zipCode: "",
       },
       email: user.email,
       responsible: "John Snow",
@@ -86,7 +86,7 @@ describe("Authenticate use case", () => {
     const user = await userRepository.register({
       email: "john123@example.com",
       password_hash: await hash("password123", 6),
-      id: "test123",
+      id: 123,
     });
 
     await organizationRepository.register({
@@ -95,7 +95,7 @@ describe("Authenticate use case", () => {
         number: "123",
         city: "Cidade Teste",
         state: "SP",
-        cep: "",
+        zipCode: "",
       },
       email: user.email,
       responsible: "John Snow",

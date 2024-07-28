@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { FilterPetsUseCase } from "./filter-pets-use-case";
 
 const fakeAddrees = {
-  cep: "333333",
+  zipCode: "333333",
   city: "London",
   state: "London",
   street: "Fake Street",

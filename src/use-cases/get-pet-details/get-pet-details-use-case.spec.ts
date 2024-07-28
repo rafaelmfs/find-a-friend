@@ -8,7 +8,7 @@ import { PetNotFoundError } from "../errors/pet-not-found-error";
 import { GetPetDetailsCase } from "./get-pet-details-use-case";
 
 const fakeAddrees = {
-  cep: "333333",
+  zipCode: "333333",
   city: "London",
   state: "London",
   street: "Fake Street",

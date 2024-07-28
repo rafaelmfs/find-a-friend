@@ -14,7 +14,7 @@ let sut: RegisterOrganizationUseCase;
 let createUserUseCase: CreateUserUseCase;
 
 const fakeAddrees = {
-  cep: "333333",
+  zipCode: "333333",
   city: "London",
   state: "London",
   street: "Fake Street",
@@ -31,7 +31,7 @@ describe("Register Org", () => {
   it("Shoud be able to register a org", async () => {
     const { org } = await sut.execute({
       address: {
-        cep: "333333",
+        zipCode: "333333",
         city: "London",
         state: "London",
         street: "Fake Street",

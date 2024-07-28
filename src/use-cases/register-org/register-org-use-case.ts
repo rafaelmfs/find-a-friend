@@ -22,7 +22,7 @@ const organizationSchemaValidation = z.object({
   password: z.string().min(4),
   email: z.string().email(),
   address: z.object({
-    cep: z.string(),
+    zipCode: z.string(),
     street: z.string().min(3).max(100),
     number: z.string().min(1),
     state: z.string().min(2).max(20),
