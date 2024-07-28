@@ -1,0 +1,11 @@
+services:
+  find-a-friend-mysql:
+    image: "bitnami/mysql:latest"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=docker
+      - MYSQL_DATABASE=find_a_friend
+      - MYSQL_PORT_NUMBER=3306
+      - MYSQL_ROOT_PASSWORD=root
