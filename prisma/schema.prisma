@@ -8,9 +8,10 @@ datasource db {
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  email        String         @unique
-  Organization Organization[]
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
+  password_hash String
+  Organization  Organization?
 
   @@map("users")
 }
@@ -22,22 +23,22 @@ model Organization {
   email       String @unique
 
   user       User    @relation(fields: [user_id], references: [id])
-  user_id    Int
+  user_id    Int     @unique
   address    Address @relation(fields: [address_id], references: [id])
-  address_id Int
+  address_id Int     @unique
   Pet        Pet[]
 
   @@map("organizations")
 }
 
 model Address {
-  id           Int            @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   street       String
   city         String
   state        String
-  zip          String
+  zipCode      String
   number       String
-  Organization Organization[]
+  Organization Organization?
 
   @@map("addresses")
 }
@@ -46,6 +47,7 @@ model Pet {
   id                 String       @id @default(uuid())
   name               String
   description        String
+  city               String
   age                Int
   stature            Int
   energi_level       Int

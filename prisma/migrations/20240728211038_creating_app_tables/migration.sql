@@ -2,6 +2,7 @@
 CREATE TABLE `users` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(191) NOT NULL,
+    `password_hash` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `users_email_key`(`email`),
     PRIMARY KEY (`id`)
@@ -12,9 +13,13 @@ CREATE TABLE `organizations` (
     `id` VARCHAR(191) NOT NULL,
     `responsible` VARCHAR(191) NOT NULL,
     `whatsapp` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
     `user_id` INTEGER NOT NULL,
     `address_id` INTEGER NOT NULL,
 
+    UNIQUE INDEX `organizations_email_key`(`email`),
+    UNIQUE INDEX `organizations_user_id_key`(`user_id`),
+    UNIQUE INDEX `organizations_address_id_key`(`address_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
