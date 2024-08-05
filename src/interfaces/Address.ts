@@ -4,4 +4,5 @@ export interface Address {
   number: string;
   state: string;
   city: string;
+  id?: number;
 }

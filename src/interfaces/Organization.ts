@@ -1,10 +1,8 @@
-import { Address } from "./Address";
-
 export interface Organization {
   id: string;
   responsible: string;
   email: string;
-  address: Address;
+  address_id: number;
   whatsapp: string;
   user_id: number;
 }
