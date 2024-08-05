@@ -39,6 +39,8 @@ export async function authenticate(
       return reply.status(401).send({ error: error.message });
     }
 
+    console.log(error);
+
     return reply.status(502).send({ error: "Internal server error!" });
   }
 }

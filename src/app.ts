@@ -16,8 +16,8 @@ app.register(jwt, {
   secret: env.JWT_SECRET_KEY,
 });
 
-app.register(organizationRoutes);
-app.register(addressRoutes);
-app.register(userRoutes);
-app.register(authenticationRoutes);
-app.register(petRoutes);
+app.register(authenticationRoutes, { prefix: "/auth" });
+app.register(organizationRoutes, { prefix: "/organization" });
+app.register(addressRoutes, { prefix: "/address" });
+app.register(userRoutes, { prefix: "/user" });
+app.register(petRoutes, { prefix: "/pet" });

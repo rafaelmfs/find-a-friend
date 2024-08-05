@@ -2,5 +2,5 @@ import { FastifyInstance } from "fastify";
 import { authenticate } from "./authenticate";
 
 export async function authenticationRoutes(app: FastifyInstance) {
-  app.post("/auth", authenticate);
+  app.post("/", authenticate);
 }
