@@ -11,7 +11,12 @@ interface AuthenticateUseCaseRequest {
   password: string;
 }
 interface AuthenticateUseCaseResponse {
-  organization: Required<Organization>;
+  id: number;
+  organization: {
+    responsible: string;
+    email: string;
+    id: string;
+  };
 }
 
 export class AuthenticateUseCase {
@@ -64,7 +69,12 @@ export class AuthenticateUseCase {
     });
 
     return {
-      organization,
+      id: user.id,
+      organization: {
+        email: organization.email,
+        id: organization.id,
+        responsible: organization.responsible,
+      },
     };
   }
 }

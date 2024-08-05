@@ -1,3 +1,5 @@
+import { AddressRepository } from "@/repostiories/address-repository";
+import { InMemoryAddressRepository } from "@/repostiories/in-memory/in-memory-address-repository";
 import { InMemoryOrganizationsRepository } from "@/repostiories/in-memory/in-memory-organizations-repository";
 import { InMemoryUserRepository } from "@/repostiories/in-memory/in-memory-user-repository";
 import { OrganizationsRepository } from "@/repostiories/organizations-repository";
@@ -10,12 +12,16 @@ import { AuthenticateUseCase } from "./authenticate-org-use-case";
 let sut: AuthenticateUseCase;
 let userRepository: UserRepository;
 let organizationRepository: OrganizationsRepository;
+let addressRepository: AddressRepository;
 
 describe("Authenticate use case", () => {
   beforeEach(() => {
     organizationRepository = new InMemoryOrganizationsRepository();
     userRepository = new InMemoryUserRepository();
     sut = new AuthenticateUseCase(organizationRepository, userRepository);
+    addressRepository = new InMemoryAddressRepository();
+
+    InMemoryAddressRepository.items = [];
   });
 
   it("Should be able to authenticate with a organization", async () => {
@@ -24,15 +30,16 @@ describe("Authenticate use case", () => {
       password_hash: hashSync("password123", 6),
       id: 123,
     });
+    const fakeAddress = await addressRepository.create({
+      street: "Rua 123",
+      number: "123",
+      city: "Cidade Teste",
+      state: "SP",
+      zipCode: "",
+    });
 
     await organizationRepository.register({
-      address: {
-        street: "Rua 123",
-        number: "123",
-        city: "Cidade Teste",
-        state: "SP",
-        zipCode: "",
-      },
+      address_id: fakeAddress.id,
       email: user.email,
       responsible: "John Snow",
       whatsapp: "999999999",
@@ -59,14 +66,16 @@ describe("Authenticate use case", () => {
       id: 123,
     });
 
+    const fakeAddress = await addressRepository.create({
+      street: "Rua 123",
+      number: "123",
+      city: "Cidade Teste",
+      state: "SP",
+      zipCode: "",
+    });
+
     await organizationRepository.register({
-      address: {
-        street: "Rua 123",
-        number: "123",
-        city: "Cidade Teste",
-        state: "SP",
-        zipCode: "",
-      },
+      address_id: fakeAddress.id,
       email: user.email,
       responsible: "John Snow",
       whatsapp: "999999999",
@@ -89,14 +98,16 @@ describe("Authenticate use case", () => {
       id: 123,
     });
 
+    const fakeAddress = await addressRepository.create({
+      street: "Rua 123",
+      number: "123",
+      city: "Cidade Teste",
+      state: "SP",
+      zipCode: "",
+    });
+
     await organizationRepository.register({
-      address: {
-        street: "Rua 123",
-        number: "123",
-        city: "Cidade Teste",
-        state: "SP",
-        zipCode: "",
-      },
+      address_id: fakeAddress.id,
       email: user.email,
       responsible: "John Snow",
       whatsapp: "999999999",
