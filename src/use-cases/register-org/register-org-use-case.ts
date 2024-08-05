@@ -1,14 +1,13 @@
-import { Address } from "@/interfaces/Address";
 import { OrganizationsRepository } from "@/repostiories/organizations-repository";
 import { z } from "zod";
 import { Organization } from "../../interfaces/Organization";
 import { CreateUserUseCase } from "../create-user/create-user-use-case";
 
-interface RegisterOrganizationUseCaseRequest {
+export interface RegisterOrganizationUseCaseRequest {
   responsible: string;
   password: string;
   email: string;
-  address: Address;
+  address_id: number;
   whatsapp: string;
   id?: string;
 }
@@ -21,13 +20,7 @@ const organizationSchemaValidation = z.object({
   responsible: z.string().min(3).max(100),
   password: z.string().min(4),
   email: z.string().email(),
-  address: z.object({
-    zipCode: z.string(),
-    street: z.string().min(3).max(100),
-    number: z.string().min(1),
-    state: z.string().min(2).max(20),
-    city: z.string().min(3).max(100),
-  }),
+  address_id: z.number(),
   whatsapp: z.string().min(8),
   id: z.string().optional(),
 });
@@ -46,8 +39,9 @@ export class RegisterOrganizationUseCase {
     });
 
     const validatedData = organizationSchemaValidation.parse(data);
+
     const org = await this.orgsRepository.register({
-      address: validatedData.address,
+      address_id: validatedData.address_id,
       email: validatedData.email,
       responsible: validatedData.responsible,
       whatsapp: validatedData.whatsapp,

@@ -1,3 +1,5 @@
+import { AddressRepository } from "@/repostiories/address-repository";
+import { InMemoryAddressRepository } from "@/repostiories/in-memory/in-memory-address-repository";
 import { InMemoryOrganizationsRepository } from "@/repostiories/in-memory/in-memory-organizations-repository";
 import { InMemoryPetRepository } from "@/repostiories/in-memory/in-memory-pet-repository";
 import { OrganizationsRepository } from "@/repostiories/organizations-repository";
@@ -17,22 +19,31 @@ const fakeAddrees = {
 
 let sut: GetPetDetailsCase;
 let petRepository: PetRepository;
+let addressRepository: AddressRepository;
 let orgRepository: OrganizationsRepository;
 describe("Get pet details", () => {
   beforeEach(() => {
     petRepository = new InMemoryPetRepository();
     orgRepository = new InMemoryOrganizationsRepository();
-    sut = new GetPetDetailsCase(petRepository, orgRepository);
+    addressRepository = new InMemoryAddressRepository();
+    sut = new GetPetDetailsCase(
+      petRepository,
+      orgRepository,
+      addressRepository
+    );
+
+    InMemoryAddressRepository.items = [];
   });
 
   it("Shoud be able to fetch pet details", async () => {
+    const address = await addressRepository.create(fakeAddrees);
     await orgRepository.register({
-      address: fakeAddrees,
+      address_id: address.id,
       email: "john.doe@example.com",
       id: "test123",
       whatsapp: "+5511999999999",
       responsible: "Jhon doe",
-      user_id: "test123",
+      user_id: 123,
     });
 
     await petRepository.register({
