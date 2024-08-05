@@ -1,35 +1,24 @@
-import { Address } from "@/interfaces/Address";
-import { Organization } from "@/interfaces/Organization";
 import { prisma } from "@/lib/prisma";
 import {
+  OrganizationResponse,
   OrganizationsRepository,
   RegisterOrganizationParams,
 } from "../organizations-repository";
-import { PrismaAddressRepostory } from "./prisma-address-repository";
 
 export class PrismaOrganizationsRepository implements OrganizationsRepository {
-  private async createNewAddressToOrg(address: Address): Promise<
-    Address & {
-      id: number;
-    }
-  > {
-    const addressRepository = new PrismaAddressRepostory();
-    const newAddress = await addressRepository.create(address);
-
-    return newAddress;
-  }
-  async register(data: RegisterOrganizationParams): Promise<Organization> {
-    const address = await this.createNewAddressToOrg(data.address);
+  async register(
+    data: RegisterOrganizationParams
+  ): Promise<OrganizationResponse> {
     const newOrg = await prisma.organization.create({
       data: {
         responsible: data.responsible,
         whatsapp: data.whatsapp,
         email: data.email,
         user_id: data.user_id,
-        address_id: address.id,
+        address_id: data.address_id,
       },
       select: {
-        address_id: false,
+        address_id: true,
         user_id: true,
         address: true,
         whatsapp: true,
@@ -41,7 +30,7 @@ export class PrismaOrganizationsRepository implements OrganizationsRepository {
 
     return newOrg;
   }
-  async findById(id: string): Promise<Organization | null> {
+  async findById(id: string): Promise<OrganizationResponse | null> {
     const org = await prisma.organization.findUnique({
       where: { id },
       include: {
@@ -51,7 +40,7 @@ export class PrismaOrganizationsRepository implements OrganizationsRepository {
 
     return org;
   }
-  async findByEmail(email: string): Promise<Organization | null> {
+  async findByEmail(email: string): Promise<OrganizationResponse | null> {
     const org = await prisma.organization.findUnique({
       where: { email },
       include: {
