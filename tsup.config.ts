@@ -7,6 +7,6 @@ export default defineConfig((options) => {
     sourcemap: true,
     clean: true,
     outDir: "build",
-    minify: true,
+    minify: "terser",
   };
 });

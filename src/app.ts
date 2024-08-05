@@ -1,3 +1,23 @@
 import fastify from "fastify";
+import { addressRoutes } from "./http/controllers/address/routes";
+import { authenticationRoutes } from "./http/controllers/auth/authenticate/routes";
+import { organizationRoutes } from "./http/controllers/organizations/routes";
+import { userRoutes } from "./http/controllers/users/routes";
 
-export const app = fastify();
+import jwt from "@fastify/jwt";
+import { env } from "./env";
+import { petRoutes } from "./http/controllers/auth/pet/routes";
+
+export const app = fastify({
+  logger: true,
+});
+
+app.register(jwt, {
+  secret: env.JWT_SECRET_KEY,
+});
+
+app.register(organizationRoutes);
+app.register(addressRoutes);
+app.register(userRoutes);
+app.register(authenticationRoutes);
+app.register(petRoutes);
