@@ -19,7 +19,7 @@ export async function getPetDetails(
     );
     const pet = await getPetDetails.execute({ pet_id: receivePetId });
 
-    return reply.status(201).send({
+    return reply.status(200).send({
       data: pet,
     });
   } catch (error) {
