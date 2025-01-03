@@ -1,3 +1,11 @@
+## Find a friend
+Um projeto para cadastros de pets para adoção em ORGS. 
+Foi feito somente o Back-end em node utilizando: 
+- Fastify para api
+- Typescript
+- PrismaORM
+- Zod
+
 ### Regras da aplicação
 
 - [x] Deve ser possível se cadastrar como uma ORG;
